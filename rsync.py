@@ -1,6 +1,7 @@
+#!/usr/bin/env python3
 import subprocess
+import sys
 from threading import Thread
-
 import display
 
 
@@ -8,7 +9,7 @@ def rsync_thread():
     global text
     tty = open('/dev/tty1', 'w')
 
-    with subprocess.Popen(['rsync', '-a', '--info=progress2,flist0', '/home/pulc/CSOB_projekce', '/home/pulc/test_rsync/'],
+    with subprocess.Popen(['rsync', '-a', '--info=progress2,flist0', '/media/'+sys.argv[1], '/mnt/backup/'],
                           stdout=subprocess.PIPE, bufsize=1, universal_newlines=True) as p:
         for line in p.stdout:
             tty.write(line)
